@@ -16,6 +16,7 @@ const AddAlertMessage = ({visibility, content}: AddAlertMessageProps) => {
 
     return (
         visibility ? (
+            // @ts-ignore
             <AlertBox content={content}/>
         ) : ""
     )
