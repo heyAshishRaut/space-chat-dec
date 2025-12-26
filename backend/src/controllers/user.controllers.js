@@ -8,8 +8,6 @@ import { ApiResponse } from "../utils/ApiResponse.js"
 import crypto from "crypto"
 
 const generateToken = (email, id) => {
-    console.log("ACCESS_TOKEN_SECRET:", process.env.ACCESS_TOKEN_SECRET)
-    console.log("ACCESS_TOKEN_EXPIRY:", process.env.ACCESS_TOKEN_EXPIRY)
 
     const accessToken = generateAccessToken(email, id)
     const refreshToken = generateRefreshToken(id)
@@ -163,6 +161,7 @@ const emailVerification = asyncHandler(async (req, res) => {
 
 const loginUser = asyncHandler(async (req, res) => {
     const {email, password} = req.body
+    console.log(email + " " + password)
 
     if (!email || !password) {
         throw new ApiError(400, "All fields are mandatory")
@@ -173,8 +172,9 @@ const loginUser = asyncHandler(async (req, res) => {
             email: email
         }
     })
+    console.log(user)
 
-    if (!user) {
+    if (!user || !user.hashedPassword) {
         throw new ApiError(400, "User not exists")
     }
 
@@ -188,8 +188,10 @@ const loginUser = asyncHandler(async (req, res) => {
         // Email not verified
         throw new ApiError(403, "Email not verified")
     }
+    console.log(`email verified`)
 
     const {accessToken, refreshToken} = generateToken(email, user.id)
+    console.log(`tokens generated`)
 
     const options = {
         httpOnly: true,
