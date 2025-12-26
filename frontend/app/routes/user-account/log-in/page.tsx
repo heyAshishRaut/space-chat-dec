@@ -26,7 +26,7 @@ const LogIn = () => {
                 <div className={`hidden md:block h-full w-1/2 py-4`}>
                     <div style={{ backgroundImage: "url(/posters/one.jpg)" }} className="relative h-full w-full rounded-4xl bg-cover bg-center">
                         <div className="absolute inset-0 bg-black/30" />
-                        <div className="relative z-10 h-full w-full flex flex-col gap-y-4 items-center justify-center text-white text-5xl font-instrument">
+                        <div className="relative h-full w-full flex flex-col gap-y-4 items-center justify-center text-white text-5xl font-instrument">
                             <Image src={logo} alt={`image`} height={60} width={60}/>
                             <div className={`text-3xl`}>Time doesn’t pass here. It circles.</div>
                         </div>

@@ -56,7 +56,7 @@ const JoinSpace = () => {
         <div className={`flex flex-col gap-y-3`}>
             {
                 visibility ? (
-                    <div className={`absolute top-[30px] left-1/2 -translate-x-1/2`}>
+                    <div className={`z-20 absolute top-[30px] left-1/2 -translate-x-1/2`}>
                         <AlertBox content={alertMsg}/>
                     </div>
                 ) : ""

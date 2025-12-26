@@ -104,7 +104,7 @@ const CreateAccount = () => {
             <PasswordField value={password} onChange={(e) => setPassword(e.target.value)}/>
             {
                 visibility ? (
-                    <div className={`absolute top-[30px] left-1/2 -translate-x-1/2`}>
+                    <div className={`z-20 absolute top-[30px] left-1/2 -translate-x-1/2`}>
                         <AlertBox content={alertMsg}/>
                     </div>
                 ) : ""
