@@ -13,10 +13,7 @@ app.use(express.static("public"))
 app.use(cookieParser())
 app.use(
     cors({
-        origin: [
-            "http://localhost:3000",
-            "http://10.134.234.234:3000"
-        ],
+        origin: process.env.CORS_ORIGIN,
         credentials: true
     })
 )
