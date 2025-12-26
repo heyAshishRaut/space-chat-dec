@@ -102,7 +102,7 @@ const emailVerification = asyncHandler(async (req, res) => {
         throw new ApiError(400, "All fields are required")
     }
 
-    const user = await prisma.user.findUnique({
+    const user = await prisma.user.findFirst({
         where: {
             email: email
         }
@@ -166,8 +166,9 @@ const loginUser = asyncHandler(async (req, res) => {
     if (!email || !password) {
         throw new ApiError(400, "All fields are mandatory")
     }
+    console.log("Passed")
 
-    const user = await prisma.user.findUnique({
+    const user = await prisma.user.findFirst({
         where: {
             email: email
         }
