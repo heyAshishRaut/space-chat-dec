@@ -8,6 +8,9 @@ import { ApiResponse } from "../utils/ApiResponse.js"
 import crypto from "crypto"
 
 const generateToken = (email, id) => {
+    console.log("ACCESS_TOKEN_SECRET:", process.env.ACCESS_TOKEN_SECRET)
+    console.log("ACCESS_TOKEN_EXPIRY:", process.env.ACCESS_TOKEN_EXPIRY)
+
     const accessToken = generateAccessToken(email, id)
     const refreshToken = generateRefreshToken(id)
 
