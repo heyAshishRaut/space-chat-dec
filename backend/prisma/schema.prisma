@@ -1,0 +1,85 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                      String   @id @default(uuid())
+  fullName                String
+  email                   String   @unique
+  hashedPassword          String
+  isVerified              Boolean  @default(false)
+  refreshToken            String
+  emailVerificationToken  String
+  emailVerificationExpiry DateTime
+
+  @@map("users")
+}
+
+model Member {
+  id      String  @id @default(uuid())
+  email   String
+  admin   Boolean @default(false)
+  Space   Space   @relation(fields: [spaceId], references: [id], onDelete: Cascade)
+  spaceId String
+
+  @@map("members")
+}
+
+model Count {
+  id            Int @id @default(1)
+  participants  Int @default(0)
+  spacesCreated Int @default(0)
+
+  @@map("counts")
+}
+
+model Space {
+  id        String    @id @default(uuid())
+  spaceName String
+  spaceCode String
+  messages  Message[]
+  members   Member[]
+
+  expiresAt DateTime
+
+  @@map("spaces")
+}
+
+enum MessageType {
+  text
+  image
+  file
+}
+
+model Message {
+  id        String      @id @default(uuid())
+  firstName String
+  email     String
+  type      MessageType @default(text)
+  file      String?
+  text      String?
+  likes     Int         @default(0)
+  likedUser Like[]
+
+  createdAt DateTime @default(now())
+  Space     Space?   @relation(fields: [spaceId], references: [id], onDelete: Cascade)
+  spaceId   String?
+
+  @@index([spaceId])
+  @@map("messages")
+}
+
+model Like {
+  id        String   @id @default(uuid())
+  userEmail String
+  Message   Message? @relation(fields: [messageId], references: [id], onDelete: Cascade)
+  messageId String
+
+  @@unique([messageId, userEmail])
+  @@map("likes")
+}
