@@ -161,12 +161,10 @@ const emailVerification = asyncHandler(async (req, res) => {
 
 const loginUser = asyncHandler(async (req, res) => {
     const {email, password} = req.body
-    console.log(email + " " + password)
 
     if (!email || !password) {
         throw new ApiError(400, "All fields are mandatory")
     }
-    console.log("Passed")
 
     const user = await prisma.user.findFirst({
         where: {
@@ -186,13 +184,19 @@ const loginUser = asyncHandler(async (req, res) => {
     }
 
     if (!user?.isVerified) {
-        // Email not verified
         throw new ApiError(403, "Email not verified")
     }
-    console.log(`email verified`)
 
     const {accessToken, refreshToken} = generateToken(email, user.id)
-    console.log(`tokens generated`)
+
+    await prisma.user.update({
+        where: {
+            id: user.id
+        },
+        data: {
+            refreshToken: refreshToken
+        }
+    })
 
     const options = {
         httpOnly: true,
