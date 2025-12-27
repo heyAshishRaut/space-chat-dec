@@ -167,7 +167,7 @@ const loginUser = asyncHandler(async (req, res) => {
         throw new ApiError(400, "All fields are mandatory")
     }
 
-    console.log("Passed 01")
+    console.log("Passed 01") // WORKING TILL HERE ONLY
 
     const user = await prisma.user.findFirst({
         where: {
@@ -196,7 +196,7 @@ const loginUser = asyncHandler(async (req, res) => {
     const {accessToken, refreshToken} = generateToken(email, user.id)
 
     console.log("Passed 06")
-    
+
     await prisma.user.update({
         where: {
             id: user.id
@@ -223,7 +223,6 @@ const loginUser = asyncHandler(async (req, res) => {
                 `Welcome Back ${user.fullName.split(" ")[0]} ! Team Space`
             )
         )
-
 })
 
 const logoutUser = asyncHandler(async (req, res) => {
