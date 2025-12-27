@@ -169,6 +169,8 @@ const loginUser = asyncHandler(async (req, res) => {
 
     console.log("Passed 01") // WORKING TILL HERE ONLY
 
+    console.log(process.env.DATABASE_URL)
+
     const user = await prisma.user.findUnique({
         where: {
             email: email
