@@ -112,7 +112,6 @@ const Page = () => {
     const [sending, setSending] = useState(false)
     // send Message
     const sendMessage = async () => {
-        setSending(true)
         if(!text && !file) {
             setVisibility(true)
             setAlertMsg(`Message in required!`)
