@@ -161,43 +161,32 @@ const emailVerification = asyncHandler(async (req, res) => {
 
 const loginUser = asyncHandler(async (req, res) => {
     const {email, password} = req.body
-    console.log(email + " " + password)
 
     if (!email || !password) {
         throw new ApiError(400, "All fields are mandatory")
     }
-
-    console.log("Passed 01") // WORKING TILL HERE ONLY
-
-    console.log(process.env.DATABASE_URL) // GETTING POSTGRES URL BUT NOT RUNNING BELOW COMMAND
 
     const user = await prisma.user.findUnique({
         where: {
             email: email
         }
     })
-    console.log("Passed 02")
 
     if (!user || !user.hashedPassword) {
         throw new ApiError(400, "User not exists")
     }
-    console.log("Passed 03")
 
     const check = await bcrypt.compare(password, user?.hashedPassword)
 
     if (!check) {
         throw new ApiError(400, "Invalid password")
     }
-    console.log("Passed 04")
 
     if (!user?.isVerified) {
         throw new ApiError(403, "Email not verified")
     }
-    console.log("Passed 02=5")
 
     const {accessToken, refreshToken} = generateToken(email, user.id)
-
-    console.log("Passed 06")
 
     await prisma.user.update({
         where: {
