@@ -169,7 +169,7 @@ const loginUser = asyncHandler(async (req, res) => {
 
     console.log("Passed 01") // WORKING TILL HERE ONLY
 
-    const user = await prisma.user.findFirst({
+    const user = await prisma.user.findUnique({
         where: {
             email: email
         }
