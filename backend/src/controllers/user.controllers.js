@@ -169,7 +169,7 @@ const loginUser = asyncHandler(async (req, res) => {
 
     console.log("Passed 01") // WORKING TILL HERE ONLY
 
-    console.log(process.env.DATABASE_URL)
+    console.log(process.env.DATABASE_URL) // GETTING POSTGRES URL BUT NOT RUNNING BELOW COMMAND
 
     const user = await prisma.user.findUnique({
         where: {

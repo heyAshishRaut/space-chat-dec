@@ -112,7 +112,7 @@ const UserProfile = () => {
                         <div className="absolute inset-0 bg-black/30" />
                         <div className="relative h-full w-full flex flex-col gap-y-4 items-center justify-center text-white text-5xl font-instrument">
                             <Image src={logo} alt={`image`} height={60} width={60}/>
-                            <div className={`text-3xl`}>The universe is not silent. It is waiting.”</div>
+                            <div className={`text-3xl`}>The universe is not silent. It is waiting.</div>
                         </div>
                     </div>
                 </div>
